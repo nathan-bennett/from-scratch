@@ -17,8 +17,12 @@ class SkellamRegression:
         coefficients1 = coefficients[0:len(coefficients) // 2]
         coefficients2 = coefficients[len(coefficients) // 2:]
 
-        lambda1 = np.squeeze(np.asarray(self.x @ np.matrix(coefficients1).T))
-        lambda2 = np.squeeze(np.asarray(self.x @ np.matrix(coefficients2).T))
+        lambda1 = np.squeeze(
+            np.asarray(self.x @ np.matrix(coefficients1).T)
+        )
+        lambda2 = np.squeeze(
+            np.asarray(self.x @ np.matrix(coefficients2).T)
+        )
 
         neg_log_likelihood = -np.sum(skellam.logpmf(self.y, mu1=np.exp(lambda1), mu2=np.exp(lambda2), loc=0))
 
@@ -51,8 +55,16 @@ class SkellamRegression:
         lambda_1_coefficients = self._results.x[0:len(self._results.x) // 2]
         lambda_2_coefficients = self._results.x[len(self._results.x) // 2:]
 
-        _lambda1 = np.squeeze(np.asarray(x @ np.matrix(lambda_1_coefficients).T))
-        _lambda2 = np.squeeze(np.asarray(x @ np.matrix(lambda_2_coefficients).T))
+        _lambda1 = np.exp(
+            np.squeeze(
+                np.asarray(x @ np.matrix(lambda_1_coefficients).T)
+            )
+        )
+        _lambda2 = np.exp(
+            np.squeeze(
+                np.asarray(x @ np.matrix(lambda_2_coefficients).T)
+            )
+        )
 
         y_hat = _lambda1 - _lambda2
 
